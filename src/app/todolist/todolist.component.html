@@ -1,3 +1,90 @@
-<div class="todo">
-  <form><input type="text" /> <button>Add</button></form>
-</div>
+<form (submit)="onSubmit($event)">
+  <h1>Angular To Do List App</h1>
+  <div>
+    <input
+      type="text"
+      class="input"
+      (change)="onInput($event)"
+      placeholder="Enter task"
+      style="width: 100%"
+    />
+    <button
+      class="btn btn-primary"
+      style="width: 50%"
+      (click)="onSubmit($event)"
+    >
+      Add Item
+    </button>
+    <button
+      class="btn btn-outline-secondary"
+      style="width: 50%"
+      onSubmit="editItem()"
+      type="button"
+      (click)="editItem()"
+    >
+      Edit Current Items
+    </button>
+  </div>
+  <div>
+    <ul [ngStyle]="{ display: 'flex', flexDirection: 'column', gap: '10px' }">
+      <li *ngFor="let item of items">
+        <!-- <input
+          type="checkbox"
+          type="checkbox"
+          [checked]="item.checked"
+          (click)="checkItem(item)"
+        /> -->
+        <div *ngIf="!item.checked" [ngStyle]="{ display: 'flex', gap: '10px' }">
+          <input
+            [ngStyle]="{
+              'font-weight': item.checked ? 'normal' : '500',
+              cursor: 'pointer',
+              border: '1px solid black',
+              padding: '10px',
+              display: 'flex',
+              'justify-content': 'center'
+            }"
+            [disabled]="editMode"
+            value="{{ item.checked ? '✅' : '❌' }} {{ item.task }} "
+          />
+          <button
+            class="btn btn-outline-success"
+            type="button"
+            (click)="checkItem(item)"
+            [disabled]="!editMode"
+          >
+            Check
+          </button>
+          <button
+            class="btn btn-outline-danger"
+            type="button"
+            (click)="deleteItem(item)"
+          >
+            Delete
+          </button>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <h2 style="color: green">Completed tasks</h2>
+  <div>
+    <ul [ngStyle]="{ display: 'flex', flexDirection: 'column', gap: '10px' }">
+      <li *ngFor="let item of items">
+        <span
+          (click)="checkItem(item)"
+          *ngIf="item.checked"
+          [ngStyle]="{
+            'text-decoration': item.checked ? 'line-through' : '',
+            cursor: 'pointer',
+            border: '1px solid black',
+            padding: '10px',
+            display: 'flex',
+            'justify-content': 'center'
+          }"
+        >
+          {{ item.checked ? "✅" : "❌" }} {{ item.task }}
+        </span>
+      </li>
+    </ul>
+  </div>
+</form>

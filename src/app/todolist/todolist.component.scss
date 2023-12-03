@@ -1,6 +1,38 @@
-.todo {
-  background: white;
-  height: 30%;
-  width: 30%;
-  width: 30%;
+form {
+  width: 100%;
+  height: 100%;
+  gap: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  .input {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    padding: 1rem;
+    width: 100%;
+  }
+  div {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    gap: 1rem;
+  }
+  ul {
+    list-style-type: none;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+
+    li {
+      width: 100%;
+      input {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow: hidden;
+        width: 100%;
+      }
+    }
+  }
 }
