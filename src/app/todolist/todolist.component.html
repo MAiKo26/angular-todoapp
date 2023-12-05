@@ -4,6 +4,8 @@
     <input
       type="text"
       class="input"
+      name="input"
+      [value]="itemPlaceholder.task"
       (change)="onInput($event)"
       placeholder="Enter task"
       style="width: 100%"

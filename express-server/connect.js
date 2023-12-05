@@ -9,7 +9,41 @@ const pool = mysql
   })
   .promise();
 
-const [rows] = await pool.query("SELECT * FROM items");
-console.log(rows);
+export async function getItems() {
+  const [rows] = await pool.query("SELECT * FROM items");
+  return rows;
+}
 
-pool.end();
+export async function addItem(item) {
+  console.log(item);
+  const result = await pool.query(
+    "INSERT INTO items (task, checked) VALUES (?,?)",
+    [item.task, item.checked]
+  );
+}
+
+// console.log(await addItem({ task: "test", checked: false }));
+
+export async function deleteItem(id) {
+  const result = await pool.query("DELETE FROM items WHERE id = ?", id);
+  return result;
+}
+
+export async function updateItem(item) {
+  const result = await pool.query("UPDATE items SET task = ? WHERE id = ?", [
+    item.task,
+    item.id,
+  ]);
+  return result;
+}
+
+export async function checkItem(item) {
+  const result = await pool.query("UPDATE items SET checked = ? WHERE id = ?", [
+    item.checked,
+    item.id,
+  ]);
+  return result;
+}
+const notes = await getItems();
+console.log(notes);
+// pool.end();
