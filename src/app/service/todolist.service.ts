@@ -15,8 +15,6 @@ export class TodolistService {
     return this.http.get<Item[]>(this.url);
   }
   addItems(item: Item): Observable<any> {
-    console.log('Service posting', item);
-
     // Make sure to return the observable and subscribe to it in the component
     return this.http.post(this.url, item);
   }
@@ -24,6 +22,6 @@ export class TodolistService {
     return this.http.delete<Item>(this.url + '/' + item.id);
   }
   updateItem(item: Item): Observable<Item> {
-    return this.http.put<Item>(this.url + '/' + item.id, item);
+    return this.http.put<Item>(this.url, item);
   }
 }

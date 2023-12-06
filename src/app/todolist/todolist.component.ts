@@ -4,17 +4,29 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 import { Item } from '../interface/item.interface';
 import { TodolistService } from '../service/todolist.service';
 import { HttpClientModule } from '@angular/common/http';
-
+import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-todolist',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, RouterLink, HttpClientModule],
+  imports: [
+    CommonModule,
+    RouterOutlet,
+    RouterLink,
+    HttpClientModule,
+    FormsModule,
+  ],
   templateUrl: './todolist.component.html',
   styleUrl: './todolist.component.scss',
 })
 export class TodolistComponent implements OnInit {
   editMode: boolean;
-  items: Item[] = [];
+  items: Item[] = [
+    {
+      id: 0,
+      task: 'task1',
+      checked: false,
+    },
+  ];
   itemPlaceholder: Item;
 
   constructor(private todolistService: TodolistService) {
@@ -72,16 +84,38 @@ export class TodolistComponent implements OnInit {
     this.itemPlaceholder.task = '';
   }
 
-  editItem() {
+  editItem(e: any) {
     this.editMode = !this.editMode;
     console.log('Edit Mode is ', this.editMode);
+    if (this.editMode) {
+      this.items.map((item, index) => {
+        this.todolistService.updateItem(item).subscribe(
+          (response: any) => {
+            console.log('Update successful', response);
+          },
+          (error: any) => {
+            console.error('Error updating item', error);
+          }
+        );
+      });
+    }
   }
 
   deleteItem(e: Item) {
     this.items.map((item, index) => {
       console.log('Deleted this item', e);
       if (item.id === e.id) {
-        this.items.splice(index, 1);
+        this.todolistService.deleteItem(item).subscribe(
+          (response: any) => {
+            console.log('Delete successful', response);
+            this.todolistService
+              .getItems()
+              .subscribe((data) => (this.items = data));
+          },
+          (error: any) => {
+            console.error('Error deleting item', error);
+          }
+        );
       }
     });
   }
@@ -92,6 +126,14 @@ export class TodolistComponent implements OnInit {
       this.items.map((item, index) => {
         if (item.id === e.id) {
           this.items[index].checked = !this.items[index].checked;
+          this.todolistService.updateItem(this.items[index]).subscribe(
+            (response: any) => {
+              console.log('Update successful', response);
+            },
+            (error: any) => {
+              console.error('Error updating item', error);
+            }
+          );
         }
       });
       console.log('Checked this item', e);

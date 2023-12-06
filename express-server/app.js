@@ -18,10 +18,7 @@ app.get("/items", async (req, res) => {
 });
 
 app.post("/items", async (req, res) => {
-  console.log("bruh", req.body);
   const item = req.body;
-  console.log("im here", item);
-
   try {
     const result = await addItem(item);
     res.status(200).send("Item added successfully");
@@ -37,9 +34,9 @@ app.put("/items", (req, res) => {
   res.send(result);
 });
 
-app.delete("/items", (req, res) => {
-  const item = req.body;
-  const result = deleteItem(item.id);
+app.delete("/items/:uuid", (req, res) => {
+  const uuid = req.params.uuid;
+  const result = deleteItem(uuid);
   res.send(result);
 });
 

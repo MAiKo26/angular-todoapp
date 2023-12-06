@@ -15,14 +15,11 @@ export async function getItems() {
 }
 
 export async function addItem(item) {
-  console.log(item);
   const result = await pool.query(
     "INSERT INTO items (task, checked) VALUES (?,?)",
     [item.task, item.checked]
   );
 }
-
-// console.log(await addItem({ task: "test", checked: false }));
 
 export async function deleteItem(id) {
   const result = await pool.query("DELETE FROM items WHERE id = ?", id);
@@ -30,10 +27,10 @@ export async function deleteItem(id) {
 }
 
 export async function updateItem(item) {
-  const result = await pool.query("UPDATE items SET task = ? WHERE id = ?", [
-    item.task,
-    item.id,
-  ]);
+  const result = await pool.query(
+    "UPDATE items SET checked = ?, task = ? WHERE id = ?",
+    [item.checked, item.task, item.id]
+  );
   return result;
 }
 
@@ -44,6 +41,3 @@ export async function checkItem(item) {
   ]);
   return result;
 }
-const notes = await getItems();
-console.log(notes);
-// pool.end();
