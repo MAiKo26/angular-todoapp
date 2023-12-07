@@ -1,27 +1,43 @@
-# AngularTodoapp
+# Angular Todo App
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.1.
+Welcome to the Angular Todo App repository! This web application provides a simple interface to manage your to-do list efficiently. It is built with Angular on the front end, Express.js for the backend, and MySQL for data storage.
 
-## Development server
+## Features
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- Add new tasks to your to-do list.
+- Mark tasks as completed or pending.
+- Edit existing tasks to update details.
+- Delete tasks when they are no longer needed.
 
-## Code scaffolding
+## Technologies Used
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- **Frontend:** Angular
+- **Backend:** Express.js
+- **Database:** MySQL
 
-## Build
+## Getting Started
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Follow these steps to set up and run the Angular Todo App:
 
-## Running unit tests
+1. **Clone the Repository:**
+   ```bash
+   git clone https://github.com/maiko26/angular-todoapp.git
+   cd angular-todoapp
+   npm install
+   ng serve
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Configuration
 
-## Running end-to-end tests
+Make sure to configure your MySQL database connection details in the `config.js` file.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+```js
+// config.js
+module.exports = {
+  db: {
+    host: 'your-mysql-host',
+    user: 'your-mysql-username',
+    password: 'your-mysql-password',
+    database: 'your-mysql-database',
+  },
+  // Other configurations...
+};
